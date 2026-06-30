@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AUV Solutions | Registration</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#00c6ff,#0072ff);
+overflow:hidden;
+}
+
+/* Background animation */
+
+body::before{
+content:'';
+position:absolute;
+width:500px;
+height:500px;
+background:rgba(255,255,255,.2);
+border-radius:50%;
+top:-150px;
+left:-150px;
+filter:blur(80px);
+animation:move 10s infinite alternate;
+}
+
+@keyframes move{
+to{
+transform:translate(300px,250px);
+}
+}
+
+/* Page Loader */
+
+#pageLoader{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#0b132b;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+font-size:30px;
+z-index:1000;
+animation:fadeOut 2s forwards;
+animation-delay:1.5s;
+}
+
+.loader{
+border:6px solid white;
+border-top:6px solid cyan;
+border-radius:50%;
+width:70px;
+height:70px;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+100%{transform:rotate(360deg);}
+}
+
+@keyframes fadeOut{
+100%{
+opacity:0;
+visibility:hidden;
+}
+}
+
+/* Glass Card */
+
+.container{
+width:400px;
+padding:35px;
+background:rgba(255,255,255,.15);
+border-radius:20px;
+backdrop-filter:blur(18px);
+box-shadow:0 8px 32px rgba(0,0,0,.3);
+color:white;
+}
+
+.container h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+outline:none;
+border-radius:10px;
+background:rgba(255,255,255,.2);
+color:white;
+}
+
+input::placeholder{
+color:white;
+}
+
+button{
+width:100%;
+padding:13px;
+border:none;
+border-radius:10px;
+background:#00d4ff;
+color:white;
+font-size:17px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+background:#0099cc;
+}
+
+#loading{
+display:none;
+text-align:center;
+margin-top:20px;
+}
+
+.success{
+display:none;
+text-align:center;
+}
+
+.success h1{
+font-size:70px;
+color:#00ff99;
+}
+
+.success p{
+font-size:22px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="pageLoader">
+<div class="loader"></div>
+</div>
+
+<div class="container" id="formBox">
+
+<h2>Register Now</h2>
+
+<input type="text" id="name" placeholder="Full Name">
+
+<input type="email" id="email" placeholder="Email">
+
+<input type="tel" id="phone" placeholder="Phone Number">
+
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="saveData()">Register</button>
+
+<div id="loading">
+<br>
+<div class="loader"></div>
+<p>Creating your account...</p>
+</div>
+
+</div>
+
+<div class="success" id="success">
+
+<h1>✔</h1>
+
+<p>Registration Successful</p>
+
+</div>
+
+<!-- Firebase -->
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import { getFirestore,collection,addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBP1XbV4MPOXE-jrnfNUNE98ka6jjimc8I",
+    authDomain: "auvsolutions-efb9c.firebaseapp.com",
+    databaseURL: "https://auvsolutions-efb9c-default-rtdb.firebaseio.com",
+    projectId: "auvsolutions-efb9c",
+    storageBucket: "auvsolutions-efb9c.firebasestorage.app",
+    messagingSenderId: "582938319792",
+    appId: "1:582938319792:web:0bda545acb0da206265475",
+    measurementId: "G-YPKYXEHY4Q"
+
+};
+
+const app=initializeApp(firebaseConfig);
+
+const db=getFirestore(app);
+
+window.saveData=async()=>{
+
+document.getElementById("loading").style.display="block";
+
+const name=document.getElementById("name").value;
+
+const email=document.getElementById("email").value;
+
+const phone=document.getElementById("phone").value;
+
+const password=document.getElementById("password").value;
+
+try{
+
+await addDoc(collection(db,"Registrations"),{
+
+name,
+
+email,
+
+phone,
+
+password,
+
+time:new Date()
+
+});
+
+document.getElementById("formBox").style.display="none";
+
+document.getElementById("success").style.display="block";
+
+setTimeout(()=>{
+
+window.location.href="index.html";
+
+},3000);
+
+}
+
+catch(e){
+
+alert("Error : "+e);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
