@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AUV Solutions</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+    /* ===========================
+   AUV SOLUTIONS
+   Premium Welcome Animation
+=============================*/
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+background:#ffffff;
+overflow:hidden;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+
+}
+
+/* Background */
+
+.background{
+
+position:absolute;
+width:100%;
+height:100%;
+overflow:hidden;
+
+}
+
+.circle{
+
+position:absolute;
+border-radius:50%;
+filter:blur(100px);
+opacity:.15;
+
+}
+
+.c1{
+
+width:300px;
+height:300px;
+background:#0066ff;
+top:-100px;
+left:-80px;
+animation:float1 10s infinite alternate;
+
+}
+
+.c2{
+
+width:250px;
+height:250px;
+background:#00c853;
+right:-60px;
+top:100px;
+animation:float2 12s infinite alternate;
+
+}
+
+.c3{
+
+width:350px;
+height:350px;
+background:#ff9800;
+bottom:-150px;
+left:40%;
+animation:float3 15s infinite alternate;
+
+}
+
+/* Main */
+
+.container{
+
+position:relative;
+text-align:center;
+z-index:5;
+
+}
+
+/* Logo */
+
+.auv{
+
+display:flex;
+justify-content:center;
+align-items:flex-end;
+gap:25px;
+
+}
+
+/* Letters */
+
+.letter{
+
+font-size:170px;
+font-weight:800;
+line-height:1;
+position:relative;
+opacity:0;
+
+animation:pop 1.2s forwards;
+
+}
+
+.a{
+
+color:#081c5a;
+animation-delay:.3s;
+
+}
+
+.u{
+
+color:#1565c0;
+animation-delay:.8s;
+
+}
+
+.v{
+
+color:#1db954;
+animation-delay:1.2s;
+
+}
+
+/* Orange swoosh */
+
+.swoosh{
+
+position:absolute;
+
+width:150px;
+height:20px;
+
+background:linear-gradient(90deg,#ff9800,#ffb300);
+
+border-radius:30px;
+
+left:25px;
+top:95px;
+
+transform:rotate(-10deg) scaleX(0);
+
+animation:swoosh 1s forwards;
+animation-delay:1.4s;
+
+box-shadow:0 0 25px orange;
+
+}
+
+/* Solutions */
+
+.solutions{
+
+margin-top:-10px;
+
+font-size:40px;
+letter-spacing:14px;
+
+font-weight:600;
+
+color:#0b1d57;
+
+opacity:0;
+
+animation:fadeUp 1s forwards;
+animation-delay:2s;
+
+}
+
+/* Line */
+
+.line{
+
+margin:20px auto;
+width:0;
+height:3px;
+
+background:linear-gradient(90deg,#1565c0,#1db954,#ff9800);
+
+animation:lineGrow 1.3s forwards;
+animation-delay:2.3s;
+
+}
+
+/* Tagline */
+
+.tagline{
+
+font-size:28px;
+
+font-weight:600;
+
+margin-top:20px;
+
+letter-spacing:3px;
+
+opacity:0;
+
+animation:fadeUp 1s forwards;
+animation-delay:2.8s;
+
+}
+
+.blue{
+
+color:#1565c0;
+
+}
+
+.green{
+
+color:#1db954;
+
+}
+
+.orange{
+
+color:#ff9800;
+
+}
+
+/* Loader */
+
+.loader{
+
+margin-top:50px;
+
+display:flex;
+justify-content:center;
+
+}
+
+.progress{
+
+width:420px;
+height:8px;
+
+background:#ddd;
+
+border-radius:20px;
+
+overflow:hidden;
+
+}
+
+.fill{
+
+width:0%;
+height:100%;
+
+background:linear-gradient(90deg,#1565c0,#1db954,#ff9800);
+
+animation:load 4.5s linear forwards;
+
+}
+
+/* Particles */
+
+.particles span{
+
+position:absolute;
+
+width:8px;
+height:8px;
+
+background:#1565c0;
+
+border-radius:50%;
+
+opacity:.4;
+
+animation:particle 10s linear infinite;
+
+}
+
+.particles span:nth-child(1){left:10%;top:90%;}
+.particles span:nth-child(2){left:20%;top:80%;}
+.particles span:nth-child(3){left:30%;top:85%;}
+.particles span:nth-child(4){left:45%;top:92%;}
+.particles span:nth-child(5){left:55%;top:87%;}
+.particles span:nth-child(6){left:65%;top:90%;}
+.particles span:nth-child(7){left:75%;top:95%;}
+.particles span:nth-child(8){left:85%;top:82%;}
+.particles span:nth-child(9){left:92%;top:90%;}
+.particles span:nth-child(10){left:97%;top:88%;}
+
+/* Animations */
+
+@keyframes pop{
+
+0%{
+
+transform:translateY(100px) scale(.2);
+opacity:0;
+
+}
+
+100%{
+
+transform:translateY(0) scale(1);
+opacity:1;
+
+}
+
+}
+
+@keyframes swoosh{
+
+to{
+
+transform:rotate(-10deg) scaleX(1);
+
+}
+
+}
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+transform:translateY(40px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+@keyframes lineGrow{
+
+to{
+
+width:650px;
+
+}
+
+}
+
+@keyframes load{
+
+to{
+
+width:100%;
+
+}
+
+}
+
+@keyframes particle{
+
+0%{
+
+transform:translateY(0);
+opacity:.5;
+
+}
+
+100%{
+
+transform:translateY(-100vh);
+opacity:0;
+
+}
+
+}
+
+@keyframes float1{
+
+to{
+
+transform:translateY(100px);
+
+}
+
+}
+
+@keyframes float2{
+
+to{
+
+transform:translateY(-120px);
+
+}
+
+}
+
+@keyframes float3{
+
+to{
+
+transform:translateX(120px);
+
+}
+
+}
+.grid{
+
+position:absolute;
+
+width:100%;
+height:100%;
+
+background-image:
+linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),
+linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px);
+
+background-size:40px 40px;
+
+animation:gridMove 20s linear infinite;
+
+opacity:.3;
+
+}
+
+@keyframes gridMove{
+
+0%{
+
+transform:translateY(0);
+
+}
+
+100%{
+
+transform:translateY(40px);
+
+}
+
+}
+</style>
+</head>
+
+<body>
+    <audio id="startupMusic">
+    <source src="startup.mp3" type="audio">
+</audio>
+
+<!-- Animated Background -->
+
+<div class="background">
+    <div class="grid"></div>
+
+<div class="circle c1"></div>
+<div class="circle c2"></div>
+<div class="circle c3"></div>
+
+<div class="particles">
+
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+
+</div>
+
+</div>
+
+<!-- Main Container -->
+
+<div class="container">
+
+<div class="logo">
+
+<div class="auv">
+
+<div class="letter a">
+
+<div class="swoosh"></div>
+
+A
+
+</div>
+
+<div class="letter u">
+
+U
+
+</div>
+
+<div class="letter v">
+
+V
+
+</div>
+
+</div>
+
+<div class="solutions">
+
+SOLUTIONS
+
+</div>
+
+<div class="line"></div>
+
+<div class="tagline">
+
+<span class="blue">
+INNOVATE
+</span>
+
+•
+
+<span class="green">
+AUTOMATE
+</span>
+
+•
+
+<span class="orange">
+ELEVATE
+</span>
+
+</div>
+
+</div>
+
+<div class="loader">
+
+<div class="progress">
+
+<div class="fill"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+    /*=========================================
+        AUV SOLUTIONS
+     Premium Welcome Animation
+==========================================*/
+
+window.onload = function () {
+
+    const letters = document.querySelectorAll(".letter");
+
+    // Glow animation
+    setInterval(() => {
+
+        letters.forEach(letter => {
+
+            letter.style.textShadow =
+                "0 0 10px rgba(0,102,255,.5),0 0 20px rgba(0,102,255,.3)";
+
+            setTimeout(() => {
+                letter.style.textShadow = "none";
+            },600);
+
+        });
+
+    },1800);
+
+
+    // Light Sweep
+    createSweep();
+
+
+    // Spark Effect
+    setInterval(createSpark,250);
+
+
+    // Redirect
+    
+
+
+
+/*======================
+     Light Sweep
+=======================*/
+
+function createSweep(){
+
+    const line=document.createElement("div");
+
+    line.style.position="absolute";
+    line.style.top="0";
+    line.style.left="-300px";
+    line.style.width="250px";
+    line.style.height="100%";
+
+    line.style.background=
+    "linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent)";
+
+    line.style.transform="skewX(-25deg)";
+    line.style.pointerEvents="none";
+
+    document.querySelector(".container").appendChild(line);
+
+    let x=-300;
+
+    const sweep=setInterval(()=>{
+
+        x+=8;
+
+        line.style.left=x+"px";
+
+        if(x>window.innerWidth){
+
+            clearInterval(sweep);
+            line.remove();
+
+        }
+
+    },15);
+
+}
+
+
+
+/*========================
+      Spark Particles
+=========================*/
+
+function createSpark(){
+
+    const spark=document.createElement("div");
+
+    spark.style.position="absolute";
+
+    spark.style.width="6px";
+    spark.style.height="6px";
+
+    spark.style.borderRadius="50%";
+
+    spark.style.background=randomColor();
+
+    spark.style.left=(window.innerWidth/2-100+Math.random()*220)+"px";
+
+    spark.style.top=(window.innerHeight/2-120+Math.random()*120)+"px";
+
+    spark.style.boxShadow="0 0 20px "+spark.style.background;
+
+    spark.style.pointerEvents="none";
+
+    document.body.appendChild(spark);
+
+    let y=0;
+    let opacity=1;
+
+    const animate=setInterval(()=>{
+
+        y-=2;
+        opacity-=0.03;
+
+        spark.style.transform=`translateY(${y}px)`;
+
+        spark.style.opacity=opacity;
+
+        if(opacity<=0){
+
+            clearInterval(animate);
+            spark.remove();
+
+        }
+
+    },20);
+
+}
+document.addEventListener("click", function () {
+
+    const music = document.getElementById("startupMusic");
+
+    music.play();
+
+}, { once: true });
+
+
+
+/*=======================
+     Random Colors
+========================*/
+
+function randomColor(){
+
+    const colors=[
+
+        "#1565C0",
+        "#1DB954",
+        "#FF9800",
+        "#00BCD4",
+        "#42A5F5"
+
+    ];
+
+    return colors[Math.floor(Math.random()*colors.length)];
+
+}
+setTimeout(()=>{
+
+        document.body.style.transition="1s";
+        document.body.style.opacity="0";
+
+        setTimeout(()=>{
+
+            window.location.href="Dashboard.html";
+
+        },1000);
+
+    },5500);
+
+}
+</script>
+
+</body>
+</html>
