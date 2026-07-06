@@ -200,74 +200,114 @@ font-size:22px;
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-import { getFirestore,collection,addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    sendEmailVerification
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+    getFirestore,
+    doc,
+    setDoc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
 
-apiKey: "AIzaSyBP1XbV4MPOXE-jrnfNUNE98ka6jjimc8I",
-    authDomain: "auvsolutions-efb9c.firebaseapp.com",
-    databaseURL: "https://auvsolutions-efb9c-default-rtdb.firebaseio.com",
-    projectId: "auvsolutions-efb9c",
-    storageBucket: "auvsolutions-efb9c.firebasestorage.app",
-    messagingSenderId: "582938319792",
-    appId: "1:582938319792:web:0bda545acb0da206265475",
-    measurementId: "G-YPKYXEHY4Q"
-
+    apiKey: "AIzaSyBP1XbV4MPOXE-jrnfNUNE98ka6jjimc8I",
+  authDomain: "auvsolutions-efb9c.firebaseapp.com",
+  databaseURL: "https://auvsolutions-efb9c-default-rtdb.firebaseio.com",
+  projectId: "auvsolutions-efb9c",
+  storageBucket: "auvsolutions-efb9c.firebasestorage.app",
+  messagingSenderId: "582938319792",
+  appId: "1:582938319792:web:0bda545acb0da206265475",
+  measurementId: "G-YPKYXEHY4Q"
 };
 
-const app=initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const db=getFirestore(app);
+const auth = getAuth(app);
 
-window.saveData=async()=>{
+const db = getFirestore(app);
 
-document.getElementById("loading").style.display="block";
+window.saveData = async () => {
 
-const name=document.getElementById("name").value;
+    document.getElementById("loading").style.display = "block";
 
-const email=document.getElementById("email").value;
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const password = document.getElementById("password").value;
 
-const phone=document.getElementById("phone").value;
+    if(name==="" || email==="" || phone==="" || password===""){
 
-const password=document.getElementById("password").value;
+        alert("Please fill all fields.");
 
-try{
+        document.getElementById("loading").style.display="none";
 
-await addDoc(collection(db,"Registrations"),{
+        return;
+    }
 
-name,
+    try{
 
-email,
+        const userCredential =
+        await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
 
-phone,
+        const user = userCredential.user;
 
-password,
+        await sendEmailVerification(user);
 
-time:new Date()
+        await setDoc(doc(db,"Registrations",user.uid),{
 
-});
+            uid:user.uid,
+            name:name,
+            email:email,
+            phone:phone,
+            createdAt:new Date()
 
-document.getElementById("formBox").style.display="none";
+        });
 
-document.getElementById("success").style.display="block";
+        document.getElementById("loading").style.display="none";
 
-setTimeout(()=>{
+        alert("Registration Successful!\n\nA verification email has been sent.\nPlease verify your email before logging in.");
 
-window.location.href="index.html";
+        window.location.href="loginpage.html";
 
-},3000);
+    }
 
-}
+    catch(error){
 
-catch(e){
+        document.getElementById("loading").style.display="none";
 
-alert("Error : "+e);
+        switch(error.code){
 
-}
+            case "auth/email-already-in-use":
+                alert("Email already registered.");
+                break;
+
+            case "auth/invalid-email":
+                alert("Invalid email address.");
+                break;
+
+            case "auth/weak-password":
+                alert("Password should be at least 6 characters.");
+                break;
+
+            default:
+                alert(error.message);
+
+        }
+
+    }
 
 }
 
 </script>
-
 </body>
 </html>
